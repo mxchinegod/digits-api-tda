@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const express = require('express')
 
 /* A route that returns the health of the application. */
 router.get('/', (req, res) => {
