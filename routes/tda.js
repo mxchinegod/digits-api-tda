@@ -19,7 +19,7 @@ router.post('/options', function (req, res, next) {
     .end()
 });
 
-router.post('/volMap', function (req, res, next) {
+router.post('/volatility', function (req, res, next) {
     const https = require("https");
     https.request(`${config.tdaHost}/v1/marketdata/chains?apikey=${config.consumer}&symbol=${req.body.query.symbol.toUpperCase()}&contractType=${req.body.query.type}&strikeCount=${req.body.query.strikeCount}&includeQuotes=TRUE&fromDate=${req.body.query.fromDate}&toDate=${req.body.query.toDate}`, (response) => {
         let data = '';
@@ -46,7 +46,7 @@ router.post('/volMap', function (req, res, next) {
         })
     })
     .on('error', (error) => {
-        console.log('An error', error);
+        res.send(error)
     })
     .end()
 });
