@@ -25,7 +25,8 @@ router.post('/options', function (req, res, next) {
 request to the TDAmeritrade API. It then returns the data to the user. */
 router.post('/volatility', function (req, res, next) {
     const https = require("https");
-    https.request(`${config.tdaHost}/v1/marketdata/chains?apikey=${config.consumer}&symbol=${req.body.query.symbol.toUpperCase()}&contractType=${req.body.query.type}&strikeCount=${req.body.query.strikeCount}&includeQuotes=TRUE&fromDate=${req.body.query.fromDate}&toDate=${req.body.query.toDate}`, (response) => {
+    const symbol = req.body.query.symbol.split('$')
+    https.request(`${config.tdaHost}/v1/marketdata/chains?apikey=${config.consumer}&symbol=${symbol.length>1?symbol[1].toUpperCase():symbol[0].toUpperCase()}&contractType=${req.body.query.type}&strikeCount=${req.body.query.strikeCount}&includeQuotes=TRUE&fromDate=${req.body.query.fromDate}&toDate=${req.body.query.toDate}`, (response) => {
         let data = '';
         response.on('data', (chunk) => {
             data = data + chunk.toString();
@@ -45,7 +46,19 @@ router.post('/volatility', function (req, res, next) {
                 })
                 final[each] = strikeMap
             }
-            res.json(final)
+            let workingData = Object.values(final)[0]
+            workingData = workingData.slice().sort().reduceRight((acc, val, i) => {
+                return i % 2 === 0 ? [...acc, val] : [val, ...acc];
+            }, [])
+            workingData.forEach((datum) => {
+                datum.vol = (datum.vol.toString() * 1).toFixed(2)
+                if (datum.vol == Math.min.apply(null, workingData.map((v) => { return v.vol }))) {
+                    datum.color = "#89c83d"
+                } else {
+                    datum.color = "#7023cd"
+                }
+            })
+            res.json(workingData)
         })
     })
     .on('error', (error) => {
