@@ -34,7 +34,7 @@ router.post('/volatility', function (req, res, next) {
         response.on('end', () => {
             const _ = JSON.parse(data)
             if (_.status != 'FAILED') {
-                var expMap = _["callExpDateMap"]
+                var expMap = _[`${req.body.query.type.toLowerCase()}ExpDateMap`]
                 var final = { strikeMap: {}, underlying: { mark: _.underlying["mark"], open: _.underlying["openPrice"], low: _.underlying["lowPrice"] } }
                 for (each in expMap) {
                     const strikes = Object.keys(expMap[each])
