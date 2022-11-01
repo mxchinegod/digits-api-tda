@@ -26,7 +26,7 @@ request to the TDAmeritrade API. It then returns the data to the user. */
 router.post('/volatility', function (req, res, next) {
     const https = require("https");
     const symbol = req.body.query.symbol.split('$')
-    https.request(`${config.tdaHost}/v1/marketdata/chains?apikey=${config.consumer}&symbol=${symbol.length > 1 ? symbol[1].toUpperCase() : symbol[0].toUpperCase()}&contractType=${req.body.query.type}&strikeCount=${req.body.query.strikeCount}&includeQuotes=TRUE&fromDate=${req.body.query.fromDate}&toDate=${req.body.query.toDate}&range=ITM`, (response) => {
+    https.request(`${config.tdaHost}/v1/marketdata/chains?apikey=${config.consumer}&symbol=${symbol.length > 1 ? symbol[1].toUpperCase() : symbol[0].toUpperCase()}&contractType=${req.body.query.type}&strikeCount=${req.body.query.strikeCount}&includeQuotes=TRUE&fromDate=${req.body.query.fromDate}&toDate=${req.body.query.toDate}&range=NTM`, (response) => {
         let data = '';
         response.on('data', (chunk) => {
             data = data + chunk.toString();
@@ -41,9 +41,9 @@ router.post('/volatility', function (req, res, next) {
                     var strikeMap = strikes.map(strike => {
                         var option = Object.values(expMap[each][strike])[0]
                         return strike = {
-                            vol: parseInt(option.volatility)
+                            vol: parseFloat(option.volatility).toFixed(2)
                             , tVol: option.theoreticalVolatility
-                            , strike: parseInt(strike)
+                            , strike: parseFloat(strike).toFixed(1)
                             , category: option.symbol
                             , openInterest: option.openInterest
                         }
