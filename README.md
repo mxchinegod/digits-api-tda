@@ -46,7 +46,7 @@ npm start
 
 ## 🏰 Service Mesh API ✨
 
-##### digits-api-main is responsible for a lot, but the API model is simple. 
+##### digits-api-tda is responsible for managing TDA data to and from DigitsUI, through digits-api-main. 
 
  - 🔌 Interfacing [ http ]
      - All API routing is done through http requests. It's possible sockets play a role one day.
