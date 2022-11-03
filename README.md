@@ -9,7 +9,7 @@ digits-api-tda is the service responsible for handling TDAmeritrade API data to 
 
 ## 📝 Code Properties ✨ ![start with why](https://img.shields.io/badge/start%20with-why%3F-brightgreen.svg?style=flat) ![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat) ![HitCount](https://hits.dwyl.com/dylanalloy/digits-ui.svg?style=flat-square) [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC_BY--NC_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
 
-##### The below stack is minimal but also differentiates the main API from the rest of Digits services
+##### The below stack is minimal because what this API does is bridge TDA responses to the main API where they can be handled
 
 | 📁 Library | ⚙ Purpose | 📎 Version |
 | :-- | :-: | --: |
