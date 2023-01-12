@@ -13,7 +13,7 @@
   "author": "Dylan Moore",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^1.2.2",
     "bluebird": "^3.7.2",
     "cors": "^2.8.5",
     "csv-parser": "^3.0.0",
