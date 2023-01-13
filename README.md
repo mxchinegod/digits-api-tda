@@ -72,10 +72,3 @@ npm start
 
 - [x] Docker images
 - [x] Kubernetes deployment
-
-<br>
-<p align="center">
-<a target="_blank" rel="noreferrer" href="https://www.buymeacoffee.com/alloydylan
-"><img style="max-width:175px;" src="https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-3.svg"></a>
-</a>
-</p>
