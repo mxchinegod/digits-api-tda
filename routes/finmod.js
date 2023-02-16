@@ -4,6 +4,7 @@ const config = require("../config.js")
 
 /* This is a post request to the finMod API. */
 router.post('/historicalPrices', function (req, res, next) {
+    console.log(req.body)
     const https = require("https");
     https.request(`${config.finModHost}v3/historical-chart/1min/${req.body.query.symbol.toUpperCase()}?apikey=${config.finModkey}`, (response) => {
         let data = '';
