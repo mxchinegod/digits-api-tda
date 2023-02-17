@@ -23,6 +23,26 @@ router.post('/options', function (req, res, next) {
 
 /* This is a route that is called when the user submits the form. It takes the form data and makes a
 request to the TDAmeritrade API. It then returns the data to the user. */
+router.post('/historicalPrices', function (req, res, next){
+    const https = require("https");
+    const symbol = req.body.query.symbol.split('$')
+    https.request(`${config.tdaHost}/v1/marketdata/${symbol}/pricehistory?apikey=${config.consumer}`, (response) => {
+        let data = '';
+        response.on('data', (chunk) => {
+            data = data + chunk.toString();
+        })
+        response.on('end', () => {
+            res.json(JSON.parse(data))
+        })
+    })
+        .on('error', (error) => {
+            console.log('An error', error);
+        })
+        .end()
+})
+
+/* This is a route that is called when the user submits the form. It takes the form data and makes a
+request to the TDAmeritrade API. It then returns the data to the user. */
 router.post('/volatility', function (req, res, next) {
     const https = require("https");
     const symbol = req.body.query.symbol.split('$')

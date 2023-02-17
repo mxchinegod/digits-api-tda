@@ -5,7 +5,7 @@ const config = require("../config.js")
 /* This is a post request to the finMod API. */
 router.post('/historicalPrices', function (req, res, next) {
     const https = require("https");
-    https.request(`${config.finModHost}v3/historical-price-full/${req.body.query.symbol.toUpperCase()}?apikey=${config.finModkey}`, (response) => {
+    https.request(`${config.finModHost}v3/historical-price-full/${req.body.query.symbol.toUpperCase()}?timeseries=720&apikey=${config.finModkey}`, (response) => {
         let data = '';
         response.on('data', (chunk) => {
             data = data + chunk.toString();
@@ -108,7 +108,7 @@ router.post('/erTranscript', function (req, res, next) {
 
 router.post('/senateDisclosure', function (req, res, next) {
     const https = require("https");
-    https.request(`${config.finModHost}v3/historical-chart/1min/${req.body.query.symbol.toUpperCase()}?apikey=${config.finModkey}`, (response) => {
+    https.request(`${config.finModHost}v4/senate-disclosure?symbol=${req.body.query.symbol.toUpperCase()}&apikey=${config.finModkey}`, (response) => {
         let data = '';
         response.on('data', (chunk) => {
             data = data + chunk.toString();
